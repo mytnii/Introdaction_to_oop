@@ -24,6 +24,36 @@ public:
 	{
 		this->y = y;
 	}
+
+	/*Point()
+	{
+		x = y = 0;
+		cout << "DefaultConstructor:\t" << this << endl;
+	}*/
+
+	/*Point(double x)
+	{
+		this->x = x;
+		this->y = double();
+		cout << "1argConstructor:\t" << this << endl;
+	}*/
+
+	Point(double x = 0, double y = 0)
+	{
+		this->x = x;
+		this->y = y;
+		cout << "Constructors:\t" << this << endl;
+	}
+
+	~Point()
+	{
+		cout << "Destructor:\t" << this << endl;
+	}
+
+	void print()const
+	{
+		cout << "X = " << x << "\tY = " << y << endl;
+	}
 };
 
 //#define  STRUCT_POINT
@@ -45,8 +75,18 @@ void main()
 
 	Point A;
 
-	A.set_x(2);
-	A.set_y(3);
+	//A.set_x(2);
+	//A.set_y(3);
 
-	cout << A.get_x() << tab << A.get_y() << endl;
+	/*cout << A.get_x() << tab << A.get_y() << endl;*/
+	A.print();
+
+	Point B(4, 5);
+	B.print();
+
+	Point C = 5;
+	C.print();
+
+	Point D(8);
+	D.print();
 }
