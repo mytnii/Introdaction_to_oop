@@ -3,6 +3,9 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+class Fraction;
+Fraction operator*(Fraction left, Fraction right);
+
 class Fraction
 {
 	int integer;
@@ -73,19 +76,21 @@ public:
 		cout << "Destructor\t" << this << endl;
 	}
 
-	void to_improper()
+	Fraction& to_improper()
 	{
 		numerator += integer * denominator;
 		integer = 0;
+		return *this;
 	}
 
-	void to_proper()
+	Fraction& to_proper()
 	{
 		integer += numerator / denominator;
 		numerator %= denominator;
+		return *this;
 	}
 
-	void reduce()
+	/*void reduce()
 	{
 			if (denominator % numerator == 0)
 			{
@@ -102,6 +107,42 @@ public:
 				denominator /= 3;
 				numerator /= 3;
 			}
+	}*/
+
+	Fraction& reduce()
+	{
+		if (numerator == 0)
+		{
+			return *this;
+		}
+		int more, less;
+		int rest;
+		if (numerator > denominator)
+		{
+			more = numerator;
+			less = denominator;
+		}
+		else
+		{
+			less = numerator;
+			more = denominator;
+		}
+		do
+		{
+			rest = more % less;
+			more = less;
+			less = rest;
+		} while (rest);
+
+		int GCD = more;
+		numerator /= GCD;
+		denominator /= GCD;
+		return *this;
+	}
+	Fraction inverted()
+	{
+		to_improper();
+		return Fraction(this->denominator, this->numerator);
 	}
 
 	void print()const
@@ -129,22 +170,47 @@ public:
 		}
 		cout << endl;
 	}
+
+	Fraction& operator*=(const Fraction& other)
+	{
+		return *this = *this * other;
+	}
 };
 
 Fraction operator*( Fraction left,  Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
-	Fraction result
-		(
-			left.get_numerator() * right.get_numerator(),
-	        left.get_denominator()* right.get_denominator()
-		);
+	//Fraction result
+	//	(
+	//		left.get_numerator() * right.get_numerator(),
+	//        left.get_denominator()* right.get_denominator()
+	//	);
 	//result.set_numerator(left.get_numerator() * right.get_numerator());
 	//result.set_denominator(left.get_denominator() * right.get_denominator());
-	result.to_proper();
-	return result;
 
+	/*result.to_proper();
+	result.reduce();
+	return result;*/
+	return Fraction
+	(
+		left.get_numerator() * right.get_numerator(),
+		left.get_denominator() * right.get_denominator()
+	).to_proper().reduce();
+
+}
+
+Fraction operator/(Fraction left, Fraction right)
+{
+	//left.to_improper();
+	//right.to_improper();
+
+	//return Fraction
+	//(
+	//	left.get_numerator() * right.get_denominator(),
+	//	left.get_denominator() * right.get_numerator()
+	//).to_improper().reduce();
+	return left * right.inverted();
 }
 
 //#define CONSTRUCTORS_CHECK
@@ -171,12 +237,14 @@ void main()
 
 	Fraction A(2, 1, 2);
 	Fraction B(3, 2, 5);
-	Fraction C = A * B;
-	C.print();
-	if (C.get_numerator() > 1)
-	{
-		C.reduce();
-	}
-	C.print();
+	//Fraction C = A * B;
+	//C.print();
+	//Fraction D(840, 3600);
+	//D.reduce();
+	//D.print();
+	//C = A / B;
+	//C.print();
 
+	A *= B;
+	A.print();
 }
