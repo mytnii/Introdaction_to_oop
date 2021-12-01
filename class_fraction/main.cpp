@@ -135,13 +135,13 @@ Fraction operator*( Fraction left,  Fraction right)
 {
 	left.to_improper();
 	right.to_improper();
-	Fraction result;
-		//(
-		//	left.get_numerator() * right.get_numerator(),
-	 //       left.get_denominator()* right.get_denominator()
-		//);
-	result.set_numerator(left.get_numerator() * right.get_numerator());
-	result.set_denominator(left.get_denominator() * right.get_denominator());
+	Fraction result
+		(
+			left.get_numerator() * right.get_numerator(),
+	        left.get_denominator()* right.get_denominator()
+		);
+	//result.set_numerator(left.get_numerator() * right.get_numerator());
+	//result.set_denominator(left.get_denominator() * right.get_denominator());
 	result.to_proper();
 	return result;
 
