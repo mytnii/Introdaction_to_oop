@@ -85,23 +85,23 @@ public:
 		numerator %= denominator;
 	}
 
-	void fraction_reduction()
+	void reduce()
 	{
-		if (denominator % numerator == 0)
-		{
-			denominator /= numerator;
-			numerator /= numerator;
-		}
-		if (denominator % 2 == 0 & numerator % 2 == 0)
-		{
-			denominator /= 2;
-			numerator /= 2;
-		}
-		else if (denominator % 3 == 0 & numerator % 3 == 0)
-		{
-			denominator /= 3;
-			numerator /= 3;
-		}
+			if (denominator % numerator == 0)
+			{
+				denominator /= numerator;
+				numerator /= numerator;
+			}
+			if (denominator % 2 == 0 & numerator % 2 == 0)
+			{
+				denominator /= 2;
+				numerator /= 2;
+			}
+			else if (denominator % 3 == 0 & numerator % 3 == 0)
+			{
+				denominator /= 3;
+				numerator /= 3;
+			}
 	}
 
 	void print()const
@@ -143,7 +143,6 @@ Fraction operator*( Fraction left,  Fraction right)
 	result.set_numerator(left.get_numerator() * right.get_numerator());
 	result.set_denominator(left.get_denominator() * right.get_denominator());
 	result.to_proper();
-	result.fraction_reduction();
 	return result;
 
 }
@@ -173,6 +172,11 @@ void main()
 	Fraction A(2, 1, 2);
 	Fraction B(3, 2, 5);
 	Fraction C = A * B;
+	C.print();
+	if (C.get_numerator() > 1)
+	{
+		C.reduce();
+	}
 	C.print();
 
 }
