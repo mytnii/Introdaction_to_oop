@@ -17,7 +17,7 @@ public:
 	{
 		return numerator;
 	}
-	int get_denomenator()const
+	int get_denominator()const
 	{
 		return denominator;
 	}
@@ -85,6 +85,25 @@ public:
 		numerator %= denominator;
 	}
 
+	void fraction_reduction()
+	{
+		if (denominator % numerator == 0)
+		{
+			denominator /= numerator;
+			numerator /= numerator;
+		}
+		if (denominator % 2 == 0 & numerator % 2 == 0)
+		{
+			denominator /= 2;
+			numerator /= 2;
+		}
+		else if (denominator % 3 == 0 & numerator % 3 == 0)
+		{
+			denominator /= 3;
+			numerator /= 3;
+		}
+	}
+
 	void print()const
 	{
 		if (integer)
@@ -117,12 +136,14 @@ Fraction operator*( Fraction left,  Fraction right)
 	left.to_improper();
 	right.to_improper();
 	Fraction result;
-	(
-		left.get_numerator() * right.get_numerator
-		)
-	//result.set_numerator(left.get_numerator() * right.get_numerator());
-	//result.set_denominator(left.get_denomenator() * right.get_denomenator());
+		//(
+		//	left.get_numerator() * right.get_numerator(),
+	 //       left.get_denominator()* right.get_denominator()
+		//);
+	result.set_numerator(left.get_numerator() * right.get_numerator());
+	result.set_denominator(left.get_denominator() * right.get_denominator());
 	result.to_proper();
+	result.fraction_reduction();
 	return result;
 
 }
