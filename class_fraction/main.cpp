@@ -273,31 +273,21 @@ Fraction operator*( Fraction left,  Fraction right)
 
 Fraction operator+( Fraction left,  Fraction right)
 {
-	left.to_improper();
-	right.to_improper();
-	Fraction buffer_left = left;
-	Fraction buffer_right = right;
-	left.common_denominator(buffer_right);
-	right.common_denominator(buffer_left);
 	return Fraction
 	(
-		left.get_numerator() + right.get_numerator(),
-		left.get_denominator()
+		left.to_improper().get_numerator() * right.get_denominator() + 
+		right.to_improper().get_numerator() * left.get_denominator(),
+		left.get_denominator() * right.get_denominator()
 	).to_proper().reduce();
 }
 
 Fraction operator-(Fraction left, Fraction right)
 {
-	left.to_improper();
-	right.to_improper();
-	Fraction buffer_left = left;
-	Fraction buffer_right = right;
-	left.common_denominator(buffer_right);
-	right.common_denominator(buffer_left);
 	return Fraction
 	(
-		left.get_numerator() - right.get_numerator(),
-		left.get_denominator()
+		left.to_improper().get_numerator() * right.get_denominator() -
+		right.to_improper().get_numerator() * left.get_denominator(),
+		left.get_denominator() * right.get_denominator()
 	).to_proper().reduce();
 }
 
@@ -317,68 +307,35 @@ Fraction operator/(Fraction left, Fraction right)
 
 bool operator<(Fraction left, Fraction right)
 {
-	left.to_improper();
-	right.to_improper();
-	Fraction buffer_left = left;
-	Fraction buffer_right = right;
-	left = left.common_denominator(buffer_right);
-	right = right.common_denominator(buffer_left);
-	return left.get_numerator() < right.get_numerator();
+	return left.to_improper().get_numerator() * right.get_denominator() <
+		   right.to_improper().get_numerator() * left.get_denominator();
 }
 
 bool operator>(Fraction left, Fraction right)
 {
-	left.to_improper();
-	right.to_improper();
-	Fraction buffer_left = left;
-	Fraction buffer_right = right;
-	left = left.common_denominator(buffer_right);
-	right = right.common_denominator(buffer_left);
-	return left.get_numerator() > right.get_numerator();
+	return left.to_improper().get_numerator() * right.get_denominator() >
+		   right.to_improper().get_numerator() * left.get_denominator();
 }
 
 bool operator==(Fraction left, Fraction right)
 {
-	left.to_improper();
-	right.to_improper();
-	Fraction buffer_left = left;
-	Fraction buffer_right = right;
-	left = left.common_denominator(buffer_right);
-	right = right.common_denominator(buffer_left);
-	return left.get_numerator() == right.get_numerator();
+	return left.to_improper().get_numerator() * right.get_denominator() ==
+		   right.to_improper().get_numerator() * left.get_denominator();
 }
 
 bool operator<=(Fraction left, Fraction right)
 {
-	left.to_improper();
-	right.to_improper();
-	Fraction buffer_left = left;
-	Fraction buffer_right = right;
-	left = left.common_denominator(buffer_right);
-	right = right.common_denominator(buffer_left);
-	return left.get_numerator() <= right.get_numerator();
+	return !(left > right);
 }
 
 bool operator>=(Fraction left, Fraction right)
 {
-	left.to_improper();
-	right.to_improper();
-	Fraction buffer_left = left;
-	Fraction buffer_right = right;
-	left = left.common_denominator(buffer_right);
-	right = right.common_denominator(buffer_left);
-	return left.get_numerator() >= right.get_numerator();
+	return !(left < right);
 }
 
 bool operator!=(Fraction left, Fraction right)
 {
-	left.to_improper();
-	right.to_improper();
-	Fraction buffer_left = left;
-	Fraction buffer_right = right;
-	left = left.common_denominator(buffer_right);
-	right = right.common_denominator(buffer_left);
-	return left.get_numerator() != right.get_numerator();
+	return !(left == right);
 }
 
 
