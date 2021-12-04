@@ -161,13 +161,6 @@ public:
 		return Fraction(this->denominator, this->numerator);
 	}
 
-	Fraction& common_denominator( const Fraction& other)
-	{
-		this->numerator *= other.denominator;
-		this->denominator *= other.denominator;
-		return *this;
-	}
-
 	void print()const
 	{
 		if (integer)
