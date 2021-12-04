@@ -5,6 +5,22 @@ using std::endl;
 
 class Fraction;
 Fraction operator*(Fraction left, Fraction right);
+Fraction operator/(Fraction left, Fraction right);
+Fraction operator+(Fraction left, Fraction right);
+Fraction operator-(Fraction left, Fraction right);
+
+bool operator<(Fraction left, Fraction right);
+bool operator>(Fraction left, Fraction right);
+bool operator==(Fraction left, Fraction right);
+bool operator<=(Fraction left, Fraction right);
+bool operator>=(Fraction left, Fraction right);
+bool operator!=(Fraction left, Fraction right);
+
+
+
+
+
+std::ostream& operator<<(std::ostream& out, Fraction& other);
 
 class Fraction
 {
@@ -145,6 +161,13 @@ public:
 		return Fraction(this->denominator, this->numerator);
 	}
 
+	Fraction& common_denominator( const Fraction& other)
+	{
+		this->numerator *= other.denominator;
+		this->denominator *= other.denominator;
+		return *this;
+	}
+
 	void print()const
 	{
 		if (integer)
@@ -171,11 +194,59 @@ public:
 		cout << endl;
 	}
 
+	void print( Fraction& other)
+	{
+		if (*this < other)
+		{
+			cout << *this << " < " << other << endl;
+		}
+		if (*this > other)
+		{
+			cout << *this << " > " << other << endl;
+		}
+		if (*this == other)
+		{
+			cout << *this << " = " << other << endl;
+		}
+	}
+
+
 	Fraction& operator*=(const Fraction& other)
 	{
 		return *this = *this * other;
 	}
+
+	Fraction& operator/=(const Fraction& other)
+	{
+		return *this = *this / other;
+	}
+
+	Fraction& operator+=(const Fraction& other)
+	{
+		return *this = *this + other;
+	}
+
+	Fraction& operator-=(const Fraction& other)
+	{
+		return *this = *this - other;
+	}
+	
 };
+	void print(Fraction& left, Fraction& right)
+	{
+		if (left <= right)
+		{
+			cout << left << " <= " << right << endl;
+		}
+		if (left >= right)
+		{
+			cout << left << " >= " << right << endl;
+		}
+		if (left != right)
+		{
+			cout << left << " Не равно " << right << endl;
+		}
+	}
 
 Fraction operator*( Fraction left,  Fraction right)
 {
@@ -200,6 +271,37 @@ Fraction operator*( Fraction left,  Fraction right)
 
 }
 
+Fraction operator+( Fraction left,  Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	Fraction buffer_left = left;
+	Fraction buffer_right = right;
+	left.common_denominator(buffer_right);
+	right.common_denominator(buffer_left);
+	return Fraction
+	(
+		left.get_numerator() + right.get_numerator(),
+		left.get_denominator()
+	).to_proper().reduce();
+}
+
+Fraction operator-(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	Fraction buffer_left = left;
+	Fraction buffer_right = right;
+	left.common_denominator(buffer_right);
+	right.common_denominator(buffer_left);
+	return Fraction
+	(
+		left.get_numerator() - right.get_numerator(),
+		left.get_denominator()
+	).to_proper().reduce();
+}
+
+
 Fraction operator/(Fraction left, Fraction right)
 {
 	//left.to_improper();
@@ -212,6 +314,102 @@ Fraction operator/(Fraction left, Fraction right)
 	//).to_improper().reduce();
 	return left * right.inverted();
 }
+
+bool operator<(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	Fraction buffer_left = left;
+	Fraction buffer_right = right;
+	left = left.common_denominator(buffer_right);
+	right = right.common_denominator(buffer_left);
+	return left.get_numerator() < right.get_numerator();
+}
+
+bool operator>(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	Fraction buffer_left = left;
+	Fraction buffer_right = right;
+	left = left.common_denominator(buffer_right);
+	right = right.common_denominator(buffer_left);
+	return left.get_numerator() > right.get_numerator();
+}
+
+bool operator==(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	Fraction buffer_left = left;
+	Fraction buffer_right = right;
+	left = left.common_denominator(buffer_right);
+	right = right.common_denominator(buffer_left);
+	return left.get_numerator() == right.get_numerator();
+}
+
+bool operator<=(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	Fraction buffer_left = left;
+	Fraction buffer_right = right;
+	left = left.common_denominator(buffer_right);
+	right = right.common_denominator(buffer_left);
+	return left.get_numerator() <= right.get_numerator();
+}
+
+bool operator>=(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	Fraction buffer_left = left;
+	Fraction buffer_right = right;
+	left = left.common_denominator(buffer_right);
+	right = right.common_denominator(buffer_left);
+	return left.get_numerator() >= right.get_numerator();
+}
+
+bool operator!=(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	Fraction buffer_left = left;
+	Fraction buffer_right = right;
+	left = left.common_denominator(buffer_right);
+	right = right.common_denominator(buffer_left);
+	return left.get_numerator() != right.get_numerator();
+}
+
+
+
+
+	 std::ostream& operator<<(std::ostream& out, Fraction& other)
+	{
+		 if (other.get_numerator() == 0 & other.get_integer() != 0)
+		 {
+			 out << other.get_integer();
+
+			 return out;
+		 }
+		 else if (other.get_integer() != 0 && other.get_numerator() != 0)
+		 {
+			 out << other.get_integer() << "("
+				 << other.get_numerator() << "/"
+				 << other.get_denominator() << ")";
+
+			 return out;
+		 }
+		 else
+		 {
+			 out << other.get_numerator() << "/"
+				 << other.get_denominator();
+
+			 return out;
+		 }
+	}
+
+
 
 //#define CONSTRUCTORS_CHECK
 
@@ -247,4 +445,36 @@ void main()
 
 	A *= B;
 	A.print();
+	cout << "---------------------------------------------------------\n";
+	/*A.common_denominator(B);
+	B.common_denominator(A);
+	A.print();
+	B.print();*/
+	Fraction C = A + B;
+	C.print();
+	cout << "--------------------------------------------------------\n";
+	C = C - A;
+	C.print();
+	cout << "-------------------------------------------------------\n";
+	C = A * B;
+	C.print();
+	cout << "--------------------------------------------------------\n";
+	C /= A;
+	C.print();
+	cout << "-------------------------------------------------------\n";
+	C += A;
+	C.print();
+	cout << "------------------------------------------------------\n";
+	C -= A;
+	C.print();
+	cout << "------------------------------------------------------\n";
+	B.print(A);
+	cout << "----------------------------------------------------\n";
+	A.print(B);
+	cout << "----------------------------------------------------\n";
+	Fraction D = B;
+	D.print(B);
+	cout << "----------------------------------------------------\n";
+	print(B, A);
+	print(B, D);
 }
