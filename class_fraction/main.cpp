@@ -1,3 +1,5 @@
+#pragma warning (disable:4326)
+
 #include<iostream>
 using std::cin;
 using std::cout;
@@ -71,7 +73,7 @@ public:
 		this->denominator = 1;
 		cout << "DefaulConstructor:\t" << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
@@ -203,6 +205,14 @@ public:
 		}
 	}
 
+	Fraction& operator= (const Fraction& other)
+	{
+		this->integer = other.integer;
+		this->numerator = other.numerator;
+		this->denominator = other.denominator;
+		cout << "CopyAssignment:\t" << this << endl;
+		return *this;
+	}
 
 	Fraction& operator*=(const Fraction& other)
 	{
@@ -222,6 +232,12 @@ public:
 	Fraction& operator-=(const Fraction& other)
 	{
 		return *this = *this - other;
+	}
+
+	       // Type - cast operators
+	explicit operator int()const
+	{
+		return integer;
 	}
 	
 };
@@ -362,6 +378,9 @@ bool operator!=(Fraction left, Fraction right)
 
 
 //#define CONSTRUCTORS_CHECK
+//#define OPERATORS_CHECK
+//#define TYPE_CONVERSIONS_BASICS
+//#define CONVERSIONS_FROM_OTHER_TOCLASS
 
 void main()
 {
@@ -382,7 +401,7 @@ void main()
 	Fraction D(2, 3, 4);
 	D.print();
 #endif
-
+#ifdef OPERATORS_CHECK
 	Fraction A(2, 1, 2);
 	Fraction B(3, 2, 5);
 	//Fraction C = A * B;
@@ -427,4 +446,40 @@ void main()
 	cout << "----------------------------------------------------\n";
 	print(B, A);
 	print(B, D);
+#endif
+
+#ifdef TYPE_CONVERSIONS_BASICS
+	int a = 2;
+	double b = 3;
+	int c = b;
+	int d = 4.5;
+	cout << d << endl;
+#endif
+
+#ifdef CONVERSIONS_FROM_OTHER_TOCLASS
+	double a = 2;
+	Fraction A = (Fraction)5;
+	A.print();
+
+	Fraction B;
+	cout << "\n-------------------------------------------------\n";
+
+	B = Fraction(8);
+	cout << "\n----------------------------------------------------\n";
+	B.print();
+
+	Fraction C(12);
+	Fraction D{ 13 };
+#endif // CONVERSIONS_FROM_OTHER_TOCLASS
+
+	Fraction A(2);
+
+	int a(A);
+	cout << a << endl;
+
+	int i = (int)A;
+
+	int g{ A };
+	cout << g << endl;
+	
 }
