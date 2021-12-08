@@ -6,7 +6,7 @@ using std::endl;
 class Fraction;
 Fraction operator*(Fraction left, Fraction right);
 Fraction operator/(Fraction left, Fraction right);
-Fraction operator+(Fraction left, Fraction right);
+Fraction operator+( Fraction left, Fraction right);
 Fraction operator-(Fraction left, Fraction right);
 
 bool operator<(Fraction left, Fraction right);
@@ -336,7 +336,7 @@ bool operator!=(Fraction left, Fraction right)
 
 	 std::ostream& operator<<(std::ostream& out, Fraction& other)
 	{
-		 if (other.get_numerator() == 0 & other.get_integer() != 0)
+		 if (other.get_numerator() == 0 && other.get_integer() != 0)
 		 {
 			 out << other.get_integer();
 
