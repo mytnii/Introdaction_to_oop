@@ -73,6 +73,14 @@ public:
 		this->denominator = 1;
 		cout << "DefaulConstructor:\t" << this << endl;
 	}
+	Fraction(double decimal_fraction)
+	{
+		integer = decimal_fraction;
+		decimal_fraction -= integer;
+		denominator = 1e+6;
+		numerator = decimal_fraction * denominator;
+		reduce();
+	}
 	explicit Fraction(int integer)
 	{
 		this->integer = integer;
@@ -239,6 +247,11 @@ public:
 	{
 		return integer;
 	}
+
+	 operator double()const
+	{
+		return integer + (double)numerator / denominator;
+	}
 	
 };
 	void print(Fraction& left, Fraction& right)
@@ -381,6 +394,7 @@ bool operator!=(Fraction left, Fraction right)
 //#define OPERATORS_CHECK
 //#define TYPE_CONVERSIONS_BASICS
 //#define CONVERSIONS_FROM_OTHER_TOCLASS
+#define HOME_WORK
 
 void main()
 {
@@ -472,14 +486,28 @@ void main()
 	Fraction D{ 13 };
 #endif // CONVERSIONS_FROM_OTHER_TOCLASS
 
-	Fraction A(2);
+	//Fraction A(2);
 
-	int a(A);
+	/*int a(A);
 	cout << a << endl;
 
 	int i = (int)A;
 
 	int g{ A };
-	cout << g << endl;
+	cout << g << endl;*/
+
+
+#ifdef HOME_WORK
+
+	Fraction A(2, 3, 4);
+	double a = A;
+	cout << a << endl;
+
+	double b = 2.75;
+	Fraction B = b;
+	B.print();
+#endif // HOME_WORK
+
+
 	
 }
