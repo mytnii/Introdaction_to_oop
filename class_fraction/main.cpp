@@ -77,7 +77,7 @@ public:
 	{
 		integer = decimal_fraction;
 		decimal_fraction -= integer;
-		denominator = 1e+6;
+		denominator = 1e+9;
 		numerator = decimal_fraction * denominator;
 		reduce();
 	}
