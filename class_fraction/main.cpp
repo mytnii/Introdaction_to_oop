@@ -75,10 +75,10 @@ public:
 	}
 	Fraction(double decimal_fraction)
 	{
-		integer = decimal_fraction;
-		decimal_fraction -= integer;
-		denominator = 1e+9;
-		numerator = decimal_fraction * denominator;
+		this->integer = decimal_fraction;
+		decimal_fraction -= this->integer;
+		this->denominator = 1e+9;
+		this->numerator = decimal_fraction * this->denominator;
 		reduce();
 	}
 	explicit Fraction(int integer)
