@@ -1,6 +1,10 @@
 #pragma warning (disable:4326)
+#define _CRT_SECURE_NO_WARNINGS
 
 #include<iostream>
+#include<cstdlib>
+#include<cstring>
+using namespace std;
 using std::cin;
 using std::cout;
 using std::endl;
@@ -22,7 +26,7 @@ bool operator!=(Fraction left, Fraction right);
 
 
 
-std::ostream& operator<<(std::ostream& out, Fraction& other);
+std::ostream& operator<<(std::ostream& out, const Fraction& other);
 
 class Fraction
 {
@@ -75,6 +79,7 @@ public:
 	}
 	Fraction(double decimal_fraction)
 	{
+		decimal_fraction += 1e-11;
 		this->integer = decimal_fraction;
 		decimal_fraction -= this->integer;
 		this->denominator = 1e+9;
@@ -95,7 +100,6 @@ public:
 		set_denominator(denominator);
 		cout << "Constructor:\t" << this << endl;
 	}
-
 
 	~Fraction()
 	{
@@ -171,47 +175,47 @@ public:
 		return Fraction(this->denominator, this->numerator);
 	}
 
-	void print()const
+	std::ostream& print(std::ostream& out)const
 	{
 		if (integer)
 		{
-			cout << integer;
+			out << integer;
 		}
 		if (numerator)
 		{
 
 		if (integer)
 		{
-			cout << "(";
+			out << "(";
 		}
-			cout << numerator << "/" << denominator;
+			out << numerator << "/" << denominator;
 			if (integer)
 			{
-				cout << ")";
+				out << ")";
 			}
 		}
 		else if (integer == 0)
 		{
-			cout << 0;
+			out << 0;
 		}
-		cout << endl;
+		return out;
 	}
 
-	void print( Fraction& other)
-	{
-		if (*this < other)
-		{
-			cout << *this << " < " << other << endl;
-		}
-		if (*this > other)
-		{
-			cout << *this << " > " << other << endl;
-		}
-		if (*this == other)
-		{
-			cout << *this << " = " << other << endl;
-		}
-	}
+	//void print( Fraction& other)
+	//{
+	//	if (*this < other)
+	//	{
+	//		cout << *this << " < " << other << endl;
+	//	}
+	//	if (*this > other)
+	//	{
+	//		cout << *this << " > " << other << endl;
+	//	}
+	//	if (*this == other)
+	//	{
+	//		cout << *this << " = " << other << endl;
+	//	}
+	//}
 
 	Fraction& operator= (const Fraction& other)
 	{
@@ -248,7 +252,7 @@ public:
 		return integer;
 	}
 
-	 operator double()const
+	 explicit operator double()const
 	{
 		return integer + (double)numerator / denominator;
 	}
@@ -363,9 +367,9 @@ bool operator!=(Fraction left, Fraction right)
 
 
 
-	 std::ostream& operator<<(std::ostream& out, Fraction& other)
+	 std::ostream& operator<<(std::ostream& out, const Fraction& other)
 	{
-		 if (other.get_numerator() == 0 && other.get_integer() != 0)
+		/* i*//*f (other.get_numerator() == 0 && other.get_integer() != 0)
 		 {
 			 out << other.get_integer();
 
@@ -385,16 +389,115 @@ bool operator!=(Fraction left, Fraction right)
 				 << other.get_denominator();
 
 			 return out;
+		 }*/
+		/* if (other.get_integer())
+		 {
+			 out << other.get_integer();
 		 }
+		 if (other.get_numerator())
+		 {
+
+			 if (other.get_integer())
+			 {
+				 out << "(";
+			 }
+			 out << other.get_numerator() << "/" << other.get_denominator();
+			 if (other.get_integer())
+			 {
+				 out << ")";
+			 }
+		 }
+		 else if (other.get_integer() == 0)
+		 {
+			 out << 0;
+		 }
+
+		 return out;*/
+
+		 return other.print(out);
 	}
 
+	 std::istream& operator>>(std::istream& in, Fraction& other)
+	 {
+		 const int size = 100;
+		 char buffer[size] = {};
+		 char delimiter[] = " (/),.";
+		 int counter;
 
+		 do{
+		 in.getline(buffer, size);
+		 char* value[3] = {};
+		 char point = '.';
+		 bool point2 = false;
+		 int num = 0;
+		 counter = 0;
+
+	
+			 for (int i = 0; buffer[i]; i++)
+			 {
+				 if (buffer[i] == point)
+				 {
+					 point2 = true;
+					 for (int j = i + 1; buffer[j]; j++)
+					 {
+						 ++num;
+					 }
+
+				 }
+			 }
+
+
+
+
+			 for (char* pch = strtok(buffer, delimiter); pch; pch = strtok(NULL, delimiter))
+			 {
+				 value[counter++] = pch;
+			 }
+
+			 if (point2 && counter <= 2)
+			 {
+				 other.set_integer(atoi(value[0]));
+				 other.set_denominator(pow(10, num));
+				 other.set_numerator(atoi(value[1]));
+				 other.reduce();
+				 return in;
+			 }
+			 /*if (counter == 0)
+			 {
+				 other.set_integer(0);
+				 other.set_numerator(0);
+				 other.set_denominator(0);
+			 }*/
+			 if (counter == 1)
+			 {
+				 other.set_integer(atoi(value[0]));
+			 }
+			 if (counter == 2)
+			 {
+				 other.set_numerator(atoi(value[0]));
+				 other.set_denominator(atoi(value[1]));
+			 }
+			 if (counter == 3)
+			 {
+				 other.set_integer(atoi(value[0]));
+				 other.set_numerator(atoi(value[1]));
+				 other.set_denominator(atoi(value[2]));
+			 }
+			 if (counter > 3)
+			 {
+				 cout << "¬ведено неправильные значени€" << endl;
+				 cout << "¬ведите значени€ заново" << endl;
+			 }
+			 other.to_proper().reduce();
+		 } while (counter > 3);
+		 return in;
+	 }
 
 //#define CONSTRUCTORS_CHECK
 //#define OPERATORS_CHECK
 //#define TYPE_CONVERSIONS_BASICS
 //#define CONVERSIONS_FROM_OTHER_TOCLASS
-#define HOME_WORK
+//#define HOME_WORK
 
 void main()
 {
@@ -503,11 +606,18 @@ void main()
 	double a = A;
 	cout << a << endl;
 
-	double b = 2.75;
+	double b = 2.76;
 	Fraction B = b;
 	B.print();
 #endif // HOME_WORK
 
+	/*Fraction A(2, 3, 4);
 
+	cout << A << endl;*/
+
+	Fraction A;
+	cout << "¬ведите простую дробь: ";
+	cin >> A;
+	cout << A << endl;
 	
 }
