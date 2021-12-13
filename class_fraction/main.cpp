@@ -428,8 +428,8 @@ bool operator!=(Fraction left, Fraction right)
 		 in.getline(buffer, size);
 		 char* value[3] = {};
 		 char point = '.';
-		 bool point2 = false;
-		 int num = 0;
+		 bool presence_point = false;
+		 int counter_decimal = 0;
 		 counter = 0;
 
 	
@@ -437,10 +437,10 @@ bool operator!=(Fraction left, Fraction right)
 			 {
 				 if (buffer[i] == point)
 				 {
-					 point2 = true;
+					 presence_point = true;
 					 for (int j = i + 1; buffer[j]; j++)
 					 {
-						 ++num;
+						 ++counter_decimal;
 					 }
 
 				 }
@@ -454,10 +454,10 @@ bool operator!=(Fraction left, Fraction right)
 				 value[counter++] = pch;
 			 }
 
-			 if (point2 && counter <= 2)
+			 if (presence_point && counter <= 2 )
 			 {
 				 other.set_integer(atoi(value[0]));
-				 other.set_denominator(pow(10, num));
+				 other.set_denominator(pow(10, counter_decimal));
 				 other.set_numerator(atoi(value[1]));
 				 other.reduce();
 				 return in;
