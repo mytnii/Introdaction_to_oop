@@ -1,26 +1,26 @@
-
+п»ї
 
 #include<iostream>
 #include<cstring>
 
 
-//Класс строка
+//РљР»Р°СЃСЃ СЃС‚СЂРѕРєР°
 class String
 {
-	int size; //Количество символов в строке
-	char* str; //Адрес на индэкс первого элемента в строке
+	int size; //РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ РІ СЃС‚СЂРѕРєРµ
+	char* str; //РђРґСЂРµСЃ РЅР° РёРЅРґСЌРєСЃ РїРµСЂРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РІ СЃС‚СЂРѕРєРµ
 
 public:
 
 //-------------------------Get-metods------------------------------
 
-      //константный Get - метод для  переменной size типа int
+      //РєРѕРЅСЃС‚Р°РЅС‚РЅС‹Р№ Get - РјРµС‚РѕРґ РґР»СЏ  РїРµСЂРµРјРµРЅРЅРѕР№ size С‚РёРїР° int
 	 const int get_size()const
 	{
 		return size;
 	}
 
-	 //константный Get - метод на адрес str типа char
+	 //РєРѕРЅСЃС‚Р°РЅС‚РЅС‹Р№ Get - РјРµС‚РѕРґ РЅР° Р°РґСЂРµСЃ str С‚РёРїР° char
 	const char* get_str()const
 	{
 		return str;
@@ -29,7 +29,7 @@ public:
 
 //---------------Constructors-------------------------------------
              
-	//Конструктор по умолчанию
+	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	String(const int size = 80)
 	{
 		this->size = size;
@@ -37,7 +37,7 @@ public:
 		std::cout << "DefaultConstructor:\t" << this << std::endl;
 	}
 
-	//Конструктор с одним параметром типа char
+	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РѕРґРЅРёРј РїР°СЂР°РјРµС‚СЂРѕРј С‚РёРїР° char
 	String(const char* str)
 	{
 		this->size = strlen(str) + 1;
@@ -49,7 +49,7 @@ public:
 		std::cout << "Constructor:\t" << this << std::endl;
 	}
 
-	//Явный конструктор с одним параметром типа int
+	//РЇРІРЅС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РѕРґРЅРёРј РїР°СЂР°РјРµС‚СЂРѕРј С‚РёРїР° int
 	explicit String(int& size)
 	{
 		this->size = size;
@@ -58,7 +58,7 @@ public:
 		std::wcout << "ExplicitConstructor:\t" << this << std::endl;
 	}
 
-	//Конструктор копирования
+	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 	String(const String& other)
 	{
 		this->size = other.size;
@@ -90,13 +90,13 @@ public:
 
 //--------------Operators--------------------------------------
 
-	//Оператор подстрочного индекса
+	//РћРїРµСЂР°С‚РѕСЂ РїРѕРґСЃС‚СЂРѕС‡РЅРѕРіРѕ РёРЅРґРµРєСЃР°
 	char& operator[](int i)
 	{
 		return str[i];
 	}
 
-	//Константный оператор подстрочного индекса
+	//РљРѕРЅСЃС‚Р°РЅС‚РЅС‹Р№ РѕРїРµСЂР°С‚РѕСЂ РїРѕРґСЃС‚СЂРѕС‡РЅРѕРіРѕ РёРЅРґРµРєСЃР°
 	const char& operator[](int i)const
 	{
 		return str[i];
@@ -105,7 +105,7 @@ public:
 };
 
 
-//Оператор унарного плюса
+//РћРїРµСЂР°С‚РѕСЂ СѓРЅР°СЂРЅРѕРіРѕ РїР»СЋСЃР°
 String operator+(const String& left,  const String& right)
 {
 	String string = (left.get_size() + right.get_size() - 1);
@@ -123,7 +123,7 @@ String operator+(const String& left,  const String& right)
 	return string;
 }
 
-//Оператор сдвига в право
+//РћРїРµСЂР°С‚РѕСЂ СЃРґРІРёРіР° РІ РїСЂР°РІРѕ
 std::ostream& operator<<(std::ostream& out, String& other)
 {
 	out << other.get_str();
