@@ -1,6 +1,8 @@
+#pragma execution_character_set("utf-8")
 
 #include<iostream>
 #include<cstring>
+
 
 //Класс строка
 class String
@@ -131,7 +133,6 @@ std::ostream& operator<<(std::ostream& out, String& other)
 
 int main()
 {
-	setlocale
 	std::cout << " ------------------------------------------------\n";
 
 	String str;
@@ -155,7 +156,7 @@ int main()
 	std::cout << " -----------------------------------------------\n";
 
 	String str4(25);
-	std::cout << str4 << std::endl;
+	str4.print();
 
 	std::cout << " -----------------------------------------------\n";
 
