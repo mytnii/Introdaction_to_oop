@@ -131,6 +131,7 @@ std::ostream& operator<<(std::ostream& out, String& other)
 
 int main()
 {
+	setlocale
 	std::cout << " ------------------------------------------------\n";
 
 	String str;
