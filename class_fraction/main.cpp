@@ -419,6 +419,9 @@ bool operator!=(Fraction left, Fraction right)
 
 	 std::istream& operator>>(std::istream& in, Fraction& other)
 	 {
+
+		 other = Fraction();
+
 		 const int size = 100;
 		 char buffer[size] = {};
 		 char delimiter[] = " (/),.";
@@ -446,12 +449,17 @@ bool operator!=(Fraction left, Fraction right)
 				 }
 			 }
 
+			 char* pch = strtok(buffer, delimiter);
 
 
-
-			 for (char* pch = strtok(buffer, delimiter); pch; pch = strtok(NULL, delimiter))
+			 //for (char* pch = strtok(buffer, delimiter); pch; pch = strtok(NULL, delimiter))
+			 //{
+				// value[counter++] = pch;
+			 //}
+			 while (pch)
 			 {
 				 value[counter++] = pch;
+				 pch = strtok(NULL, delimiter);
 			 }
 
 			 if (presence_point && counter <= 2 )
