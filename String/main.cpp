@@ -30,9 +30,9 @@ public:
 //---------------Constructors-------------------------------------
              
 	//Конструктор по умолчанию
-	String(const int size = 80)
+	String()
 	{
-		this->size = size;
+		this->size = 80;
 		this->str = new char[size] {};
 		std::cout << "DefaultConstructor:\t" << this << std::endl;
 	}
@@ -50,10 +50,10 @@ public:
 	}
 
 	//Явный конструктор с одним параметром типа int
-	explicit String(int& size)
+    explicit String( const int& size)
 	{
 		this->size = size;
-		this->str = new char[size];
+		this->str = new char[size] {};
 
 		std::wcout << "ExplicitConstructor:\t" << this << std::endl;
 	}
@@ -108,7 +108,7 @@ public:
 //Оператор унарного плюса
 String operator+(const String& left,  const String& right)
 {
-	String string = (left.get_size() + right.get_size() - 1);
+	String string((left.get_size() + right.get_size() - 1));
 	for (int i = 0; i < left.get_size(); i++)
 	{
 		string[i] = left[i];
