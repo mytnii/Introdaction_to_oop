@@ -14,13 +14,13 @@ public:
 
 //-------------------------Get-metods------------------------------
 
-      //константный Get - метод для  переменной size типа int
+      //константный Get - метод для  переменной тип int
 	 const int get_size()const
 	{
 		return size;
 	}
 
-	 //константный Get - метод на адрес str типа char
+	 //константный Get - метод для адреса тип char
 	const char* get_str()const
 	{
 		return str;
