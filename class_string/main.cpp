@@ -37,7 +37,7 @@ public:
 
 	explicit String(int size = 80)
 	{
-		this->size = 80;
+		this->size = size;
 		this->str = new char[size] {};  //Память выделяемую для строки обязательно нужно занулить
 		cout << "SizeConstructor:\t" << this << endl;
 	}
@@ -198,4 +198,5 @@ void main()
 	cout << "Введите строку: "; cin >> str;
 	cout << str << endl;
 	str.print();
+
 }
