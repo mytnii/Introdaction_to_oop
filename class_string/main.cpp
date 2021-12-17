@@ -8,6 +8,7 @@ using std::endl;
 class String;
 String operator+(const String& left, const String& right);
 
+#define delimiter cout << "\n-----------------------------------------------------------\n";
 
 class String
 {
@@ -188,15 +189,28 @@ void main()
 	String str2 = "World";
 	String str3 = str1 + str2;
 	cout << str3 << endl;*/
-
+	delimiter;
 	String str1 = "Hello";
+
+	delimiter;
 	String str2 = "World";
+
+	delimiter;
 	str1 += str2;
+
+	delimiter;
 	cout << str1 << endl;
 
+	delimiter;
 	String str;
+
 	cout << "¬ведите строку: "; cin >> str;
+	delimiter;
+
 	cout << str << endl;
+	delimiter;
+
 	str.print();
+	delimiter;
 
 }
