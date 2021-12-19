@@ -39,7 +39,7 @@ public:
 		 this->size = size;
 	 }
 
-	explicit String(int size = 1e+10)
+	explicit String(int size = 80)
 	{
 		this->size = size;
 		this->str = new char[size] {};  //Память выделяемую для строки обязательно нужно занулить
@@ -150,9 +150,9 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 std::istream& operator>>(std::istream& in,  String& obj)
 {
 	
-	in.getline(obj.get_str(), 1e+10);
+	/*in.getline(obj.get_str(), 1e+10);
 
-	 int size = strlen(obj.get_str()) + 1;
+	 int size = strlen(obj.get_str()) + 1;*/
 
 	/*cout << size << endl;
 
@@ -164,19 +164,34 @@ std::istream& operator>>(std::istream& in,  String& obj)
 	//{
 	//	str[i] = obj.get_str()[i];
 	//}
-	String str(size);
+	/*String str(size);
 	for (int i = 0; i < size; i++)
 	{
 		str.get_str()[i] = obj.get_str()[i];
-	}
+	}*/
 
 	/*str.print();*/
-	obj = str;
+	/*obj = str;
 	
+	return in;*/
+
+	const int SIZE = 1024 * 1000;
+	char buffer[SIZE] = {};
+	in >> buffer;
+	obj = buffer;
 	return in;
+}
+std::istream& getline(std::istream& is, String& obj)
+{
+	const int SIZE = 1024 * 1000;
+	char buffer[SIZE] = {};
+	is.getline(buffer, SIZE);
+	obj = buffer;
+	return is;
 }
 
 //#define CONSTRUCTORS_CHECk
+//#define OPERATORS_CHECK
 
 void main()
 {
@@ -204,6 +219,7 @@ void main()
 	String str2 = "World";
 	String str3 = str1 + str2;
 	cout << str3 << endl;*/
+#ifdef OPERATORS_CHECK
 	delimiter;
 	String str1 = "Hello";
 
@@ -227,5 +243,12 @@ void main()
 
 	str.print();
 	delimiter;
+#endif // OPERATORS_CHECK
 
+	String str;
+	cout << "Введите строку: ";
+	/*cin >> str;*/
+	getline(cin, str);
+	cout << str << endl;
+	str.print();
 }
