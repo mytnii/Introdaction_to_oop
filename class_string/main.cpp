@@ -39,17 +39,17 @@ public:
 		 this->size = size;
 	 }
 
-	explicit String(int size = 80)
+	 explicit String(int size = 80) :size(size), str(new char[size] {})
 	{
-		this->size = size;
-		this->str = new char[size] {};  //Память выделяемую для строки обязательно нужно занулить
+		/*this->size = size;
+		this->str = new char[size];*///Память выделяемую для строки обязательно нужно занулить
 		cout << "SizeConstructor:\t" << this << endl;
 	}
 
-	String(const char str[])
+	 String(const char str[]):size(strlen(str) + 1), str(new char[size] {})
 	{
-		this->size = strlen(str) + 1;
-		this->str = new char[size] {};
+		/*this->size = strlen(str) + 1;
+		this->str = new char[size] {};*/
 		for (int i = 0; str[i]; i++)
 		{
 			this->str[i] = str[i];
@@ -57,10 +57,10 @@ public:
 		cout << "Constructor:\t" << this << endl;
 	}
 
-	String(const String& other)
+	String(const String& other):size(other.size), str(new char[size])
 	{
-		this->size = other.size;
-		this->str = new char[size] {};
+		/*this->size = other.size;
+		this->str = new char[size] {};*/
 		for (int i = 0; i < size; i++)
 		{
 			this->str[i] = other.str[i];
@@ -192,6 +192,7 @@ std::istream& getline(std::istream& is, String& obj)
 
 //#define CONSTRUCTORS_CHECk
 //#define OPERATORS_CHECK
+//#define INPUT_CHECK
 
 void main()
 {
@@ -245,10 +246,36 @@ void main()
 	delimiter;
 #endif // OPERATORS_CHECK
 
+#ifdef INPUT_CHECK
+
 	String str;
 	cout << "Введите строку: ";
 	/*cin >> str;*/
 	getline(cin, str);
 	cout << str << endl;
 	str.print();
+#endif // INPUT_CHECK
+	delimiter;
+	String str1;
+	delimiter;
+	str1.print();
+	delimiter;
+	String str2 = "Hello";
+	delimiter;
+	String str3 = str2;
+	delimiter;
+	str3.print();
+	delimiter;
+	String str4();
+	delimiter;
+	/*str4.print();
+	delimiter;*/
+	String str5{};
+	delimiter;
+	str5.print();
+	delimiter;
+	String str6("World");
+	delimiter;
+	String str7{ "Planet" };
+
 }
