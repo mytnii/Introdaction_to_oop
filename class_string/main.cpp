@@ -1,6 +1,7 @@
 #pragma warning(disable:4326)
 
 #include<iostream>
+#include<string>
 using std::cin;
 using std::cout;
 using std::endl;
@@ -31,12 +32,14 @@ public:
 		return size;
 	}
 
+
+
 	 void set_size(int size)
 	 {
 		 this->size = size;
 	 }
 
-	explicit String(int size = 80)
+	explicit String(int size = 1e+10)
 	{
 		this->size = size;
 		this->str = new char[size] {};  //Память выделяемую для строки обязательно нужно занулить
@@ -74,10 +77,10 @@ public:
 	//-------------------Operators------------
 	String& operator=(const String& other)
 	{
-		if (this == &other)
-		{
-			return *this;
-		}
+		//if (this == &other)
+		//{
+		//	return *this;
+		//}
 		delete[] this->str;
 		this->size = other.size;
 		this->str = new char[size] {};
@@ -94,11 +97,11 @@ public:
 		return *this = *this + other;
 	}
 
+
 	char& operator[](int i)
 	{
 		return str[i];
 	}
-
 	const char& operator[](int i)const
 	{
 		return str[i];
@@ -146,18 +149,30 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 
 std::istream& operator>>(std::istream& in,  String& obj)
 {
-	//return in >> obj.get_str();
-	in >> obj.get_str();
+	
+	in.getline(obj.get_str(), 1e+10);
+
+	 int size = strlen(obj.get_str()) + 1;
+
+	/*cout << size << endl;
+
+	cout << obj.get_str() << endl;*/
+
+	/*char* str = new char[size] {};*/
 	//char* str = new char[strlen(obj.get_str())];
 	//for (int i = 0; str[i]; i++)
 	//{
-	//	str[i] = obj[i];
+	//	str[i] = obj.get_str()[i];
 	//}
+	String str(size);
+	for (int i = 0; i < size; i++)
+	{
+		str.get_str()[i] = obj.get_str()[i];
+	}
 
-	//obj = str;
-	String str(obj.get_str());
+	/*str.print();*/
 	obj = str;
-
+	
 	return in;
 }
 
