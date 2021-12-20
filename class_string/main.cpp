@@ -120,6 +120,7 @@ public:
 
 };
 
+
 String operator+(const String& left, const String& right)
 {
 	String result((left.get_size() + right.get_size() - 1));
