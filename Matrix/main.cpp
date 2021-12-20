@@ -51,9 +51,6 @@ public:
 			delete[] matrix[i];
 		}
 		delete[] matrix;
-		matrix = NULL;
-		rows = 0;
-		cols = 0;
 
 		std::cout << "Destructor:\t" << this << std::endl;
 	}
