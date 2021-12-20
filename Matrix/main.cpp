@@ -24,16 +24,6 @@ public:
 		return cols;
 	}
 
-	 int** get_matrix()
-	 {
-		 return matrix;
-	}
-
-	 int** get_matrix()const
-	 {
-		 return matrix;
-	 }
-
 //----------------------------Constructors---------------------------
 
 	explicit Matrix(const int rows = 3, const int cols = 3)
@@ -85,7 +75,7 @@ public:
 	}
 
 	//Заполнение матрици
-	void filling()
+	void completion()
 	{
 		for (int i = 0; i < rows; i++)
 		{
@@ -207,13 +197,13 @@ int main()
 
 	delimiter;
 	Matrix matrix(4,4);
-	matrix.filling();
+	matrix.completion();
 	delimiter;
 	matrix.print();
 
 	delimiter;
 	Matrix matrix2(4,4);
-	matrix2.filling();
+	matrix2.completion();
 	delimiter;
 	matrix2.print();
 
