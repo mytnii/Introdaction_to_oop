@@ -68,6 +68,15 @@ public:
 		cout << "CopyConstructor:\t" << this << endl;
 	}
 
+	String(String&& other)noexcept
+	{
+		this->size = other.size;
+		this->str = other.str;
+		other.size = 0;
+		other.str = nullptr;
+		
+		cout << "MoveConstructor:\t" << this << endl;
+	}
 	~String()
 	{
 		delete[] str;
@@ -89,6 +98,20 @@ public:
 			this->str[i] = other.str[i];
 		}
 		cout << "CopyAssignment:\t" << this << endl;
+		return *this;
+	}
+
+	String& operator=(String&& other)
+	{
+		if (this == &other)return *this;
+		delete this->str;
+		this->size = other.size;
+		this->str = other.str;
+
+		other.size = 0;
+		other.str = 0;
+		cout << "MoveAssignment:\t" << this << endl;
+
 		return *this;
 	}
 
@@ -191,7 +214,7 @@ std::istream& getline(std::istream& is, String& obj)
 }
 
 //#define CONSTRUCTORS_CHECk
-//#define OPERATORS_CHECK
+#define OPERATORS_CHECK
 
 void main()
 {
@@ -228,6 +251,7 @@ void main()
 
 	delimiter;
 	str1 += str2;
+	String str3;
 
 	delimiter;
 	cout << str1 << endl;
@@ -245,10 +269,10 @@ void main()
 	delimiter;
 #endif // OPERATORS_CHECK
 
-	String str;
-	cout << "¬ведите строку: ";
-	/*cin >> str;*/
-	getline(cin, str);
-	cout << str << endl;
-	str.print();
+	//String str;
+	//cout << "¬ведите строку: ";
+	///*cin >> str;*/
+	//getline(cin, str);
+	//cout << str << endl;
+	//str.print();
 }
